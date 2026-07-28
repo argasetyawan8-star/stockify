@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SupplierRequest;
 use App\Services\SupplierService;
 use App\Services\ActivityLogService;
+use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
@@ -36,12 +37,20 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $suppliers = $this->supplierService->getAll();
+    public function index(Request $request)
+{
 
-        return view('suppliers.index', compact('suppliers'));
-    }
+    $suppliers = $this->supplierService->getAll(
+        $request->search
+    );
+
+
+    return view(
+        'suppliers.index',
+        compact('suppliers')
+    );
+
+}
 
     /**
      * Show the form for creating a new resource.

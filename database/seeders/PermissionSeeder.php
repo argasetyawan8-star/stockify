@@ -111,6 +111,15 @@ class PermissionSeeder extends Seeder
 
             'view activity logs',
 
+             /*
+            |--------------------------------------------------------------------------
+            | Settings
+            |--------------------------------------------------------------------------
+            */
+
+            'view settings',
+            'manage settings',
+
         ];
 
         foreach ($permissions as $permission) {

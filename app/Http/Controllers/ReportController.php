@@ -2,158 +2,91 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ReportService;
+use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Models\StockIn;
-use App\Models\StockOut;
-use App\Services\ActivityLogService;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
-    protected $activityLogService;
+    protected ReportService $reportService;
 
-    public function __construct(
-        ActivityLogService $activityLogService
-    ) {
-        $this->activityLogService = $activityLogService;
+    public function __construct(ReportService $reportService)
+    {
+        $this->reportService = $reportService;
     }
 
     /**
-     * Display report.
+     * Halaman Report
      */
     public function index(Request $request)
-    {
-        /*
-        |--------------------------------------------------------------------------
-        | Stock In
-        |--------------------------------------------------------------------------
-        */
+{
+    $filter = $request->all();
 
-        $stockIns = StockIn::with('product')
-            ->when($request->start_date, function ($query) use ($request) {
-                $query->whereDate('date', '>=', $request->start_date);
-            })
-            ->when($request->end_date, function ($query) use ($request) {
-                $query->whereDate('date', '<=', $request->end_date);
-            })
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'id'      => $item->id,
-                    'type'    => 'IN',
-                    'date'    => $item->date,
-                    'product' => $item->product,
-                    'qty'     => $item->qty,
-                    'note'    => $item->note,
-                ];
-            });
+    $reportType = $request->get('report', 'inventory');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Stock Out
-        |--------------------------------------------------------------------------
-        */
+    $reports = match ($reportType) {
 
-        $stockOuts = StockOut::with('product')
-            ->when($request->start_date, function ($query) use ($request) {
-                $query->whereDate('date', '>=', $request->start_date);
-            })
-            ->when($request->end_date, function ($query) use ($request) {
-                $query->whereDate('date', '<=', $request->end_date);
-            })
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'id'      => $item->id,
-                    'type'    => 'OUT',
-                    'date'    => $item->date,
-                    'product' => $item->product,
-                    'qty'     => $item->qty,
-                    'note'    => $item->note,
-                ];
-            });
+        'inventory' => $this->reportService->getInventoryReport($filter),
 
-        /*
-        |--------------------------------------------------------------------------
-        | Merge Transaction
-        |--------------------------------------------------------------------------
-        */
+        'stock_in' => $this->reportService->getStockInReport($filter),
 
-        $transactions = $stockIns
-            ->merge($stockOuts)
-            ->sortByDesc('date');
+        'stock_out' => $this->reportService->getStockOutReport($filter),
 
-        if ($request->filled('type')) {
-            $transactions = $transactions->where(
-                'type',
-                $request->type
-            );
-        }
+        'stock_opname' => $this->reportService->getStockOpnameReport($filter),
 
-        /*
-        |--------------------------------------------------------------------------
-        | Activity Log
-        |--------------------------------------------------------------------------
-        */
+        'low_stock' => $this->reportService->getLowStockReport($filter),
 
-        $this->activityLogService->store([
-            'user_id'    => auth()->id(),
-            'module'     => 'Report',
-            'activity'   => 'Melihat laporan transaksi',
-            'ip_address' => request()->ip(),
-        ]);
+        default => $this->reportService->getInventoryReport($filter),
 
-        return view(
-            'reports.index',
-            compact('transactions')
-        );
-    }
+    };
+
+    // Dropdown Filter
+    $products = Product::orderBy('name')->get();
+
+    $suppliers = Supplier::orderBy('name')->get();
+
+    // Statistik
+    $statistics = [
+
+        'total_product' => Product::count(),
+
+        'stock' => Product::sum('stock'),
+
+        'low_stock' => Product::whereColumn(
+            'stock',
+            '<=',
+            'minimum_stock'
+        )->count(),
+
+    ];
+
+    return view('reports.index', [
+
+        'reports' => $reports,
+
+        'products' => $products,
+
+        'suppliers' => $suppliers,
+
+        'statistics' => $statistics,
+
+    ]);
+}
 
     /**
      * Export PDF
      */
     public function exportPdf(Request $request)
     {
-        $stockIns = StockIn::with('product')
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'type'    => 'IN',
-                    'date'    => $item->date,
-                    'product' => $item->product,
-                    'qty'     => $item->qty,
-                    'note'    => $item->note,
-                ];
-            });
+        return $this->reportService->exportPdf($request->all());
+    }
 
-        $stockOuts = StockOut::with('product')
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'type'    => 'OUT',
-                    'date'    => $item->date,
-                    'product' => $item->product,
-                    'qty'     => $item->qty,
-                    'note'    => $item->note,
-                ];
-            });
-
-        $transactions = $stockIns
-            ->merge($stockOuts)
-            ->sortByDesc('date');
-
-        $this->activityLogService->store([
-            'user_id'    => auth()->id(),
-            'module'     => 'Report',
-            'activity'   => 'Mengunduh laporan PDF',
-            'ip_address' => request()->ip(),
-        ]);
-
-        $pdf = Pdf::loadView(
-            'reports.pdf',
-            compact('transactions')
-        );
-
-        return $pdf->download('laporan-stock.pdf');
+    /**
+     * Export Excel
+     */
+    public function exportExcel(Request $request)
+    {
+        return $this->reportService->exportExcel($request->all());
     }
 }

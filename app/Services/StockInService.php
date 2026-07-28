@@ -5,17 +5,21 @@ namespace App\Services;
 use App\Interfaces\StockInRepositoryInterface;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use App\Services\ActivityLogService;
 
 class StockInService
 {
     protected $stockInRepository;
+    protected $activityLogService;
 
 
-    public function __construct(
-        StockInRepositoryInterface $stockInRepository
-    ) {
-        $this->stockInRepository = $stockInRepository;
-    }
+   public function __construct(
+    StockInRepositoryInterface $stockInRepository,
+    ActivityLogService $activityLogService
+) {
+    $this->stockInRepository = $stockInRepository;
+    $this->activityLogService = $activityLogService;
+}
 
 
 
@@ -47,8 +51,20 @@ class StockInService
             $data['status'] = 'pending';
 
 
-            return $this->stockInRepository
-                        ->store($data);
+           $stockIn = $this->stockInRepository->store($data);
+
+            $product = Product::findOrFail($stockIn->product_id);
+
+            $this->activityLogService->log(
+                'Stock In',
+                'Membuat permintaan Stock In produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockIn->qty .
+                ' pcs'
+);
+
+return $stockIn;
 
         });
     }
@@ -84,9 +100,20 @@ class StockInService
 
 
 
-            $this->stockInRepository
-                 ->update($id,$data);
+           $updated = $this->stockInRepository->getById($id);
 
+                $product = Product::findOrFail($updated->product_id);
+
+                $this->activityLogService->log(
+                    'Stock In',
+                    'Mengubah permintaan Stock In produk "' .
+                    $product->name .
+                    '" menjadi ' .
+                    $updated->qty .
+                    ' pcs'
+                );
+
+                return $updated;
 
 
             return $this->stockInRepository
@@ -146,7 +173,14 @@ class StockInService
 
             ]);
 
-
+             $this->activityLogService->log(
+                'Approval Stock In',
+                'Menyetujui Stock In produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockIn->qty .
+                ' pcs'
+            );
 
             return $stockIn;
 
@@ -180,6 +214,16 @@ class StockInService
 
         ]);
 
+            $product = Product::findOrFail($stockIn->product_id);
+
+            $this->activityLogService->log(
+                'Approval Stock In',
+                'Menolak Stock In produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockIn->qty .
+                ' pcs'
+            );
 
 
         return $stockIn;
@@ -223,7 +267,16 @@ class StockInService
 
             }
 
+            $product = Product::findOrFail($stockIn->product_id);
 
+            $this->activityLogService->log(
+                'Stock In',
+                'Menghapus transaksi Stock In produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockIn->qty .
+                ' pcs'
+            );
 
             $this->stockInRepository
                  ->delete($id);

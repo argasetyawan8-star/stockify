@@ -189,7 +189,68 @@
 
 
         </div>
+        <br> 
 
+        {{-- Password Confirmation --}}
+<div>
+
+    <label class="block mb-2 text-sm font-semibold text-gray-700">
+
+        Konfirmasi Password
+
+        @isset($user)
+
+            <span class="text-xs text-gray-400">
+                (Kosongkan jika tidak mengganti password)
+            </span>
+
+        @else
+
+            <span class="text-red-500">
+                *
+            </span>
+
+        @endisset
+
+    </label>
+
+
+
+    <input
+
+        type="password"
+
+        name="password_confirmation"
+
+        placeholder="Ulangi password"
+
+        class="w-full rounded-lg border
+
+        @error('password_confirmation')
+            border-red-500
+        @else
+            border-gray-300
+        @enderror
+
+        focus:border-blue-500 focus:ring focus:ring-blue-200"
+
+    >
+
+
+
+
+    @error('password_confirmation')
+
+        <p class="mt-1 text-sm text-red-500">
+
+            {{ $message }}
+
+        </p>
+
+    @enderror
+
+
+</div>
 
 
 

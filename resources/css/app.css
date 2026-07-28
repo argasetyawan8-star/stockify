@@ -189,3 +189,96 @@
     height: calc(100vh - 4rem);
   }
 }
+
+@keyframes float {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+
+.animate-float {
+
+    animation: float 4s ease-in-out infinite;
+
+}
+
+
+
+
+@keyframes fade-in {
+
+    from {
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+.animate-fade-in {
+
+    animation: fade-in .7s ease-out;
+
+}
+
+.sidebar-scroll::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb{
+    background:#a855f7;
+    border-radius:20px;
+}
+
+/* ==========================
+   STOCKIFY SIDEBAR SCROLLBAR
+========================== */
+
+
+.custom-scrollbar::-webkit-scrollbar {
+
+    width: 5px;
+
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+
+    background: rgba(168,85,247,0.45);
+
+    border-radius: 20px;
+
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+
+    background: rgba(168,85,247,0.8);
+
+}
+

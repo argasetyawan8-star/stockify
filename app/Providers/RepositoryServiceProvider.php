@@ -31,6 +31,14 @@ use App\Interfaces\ApprovalRepositoryInterface;
 use App\Repositories\ApprovalRepository;
 use Illuminate\Support\Facades\View;
 use App\View\Composers\SidebarComposer;
+use App\Interfaces\SettingRepositoryInterface;
+use App\Repositories\SettingRepository;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Schema;
+use App\Interfaces\ManagerDashboardRepositoryInterface;
+use App\Repositories\ManagerDashboardRepository;
+
+
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -97,7 +105,16 @@ class RepositoryServiceProvider extends ServiceProvider
         ApprovalRepository::class
         );
 
-              
+                $this->app->bind(
+            SettingRepositoryInterface::class,
+            SettingRepository::class
+        ); 
+        
+                $this->app->bind(
+            ManagerDashboardRepositoryInterface::class,
+            ManagerDashboardRepository::class
+        );
+        
     }
 
     /**
@@ -109,5 +126,25 @@ class RepositoryServiceProvider extends ServiceProvider
         'layouts.sidebar',
         SidebarComposer::class
     );
+
+
+    if (\Schema::hasTable('settings')) {
+
+        View::share(
+            'setting',
+            Setting::first() ?? new Setting()
+        );
+
+    } else {
+
+        View::share(
+            'setting',
+            new Setting()
+        );
+
+    }
 }
+
+
+    
 }

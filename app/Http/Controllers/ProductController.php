@@ -8,6 +8,7 @@ use App\Services\ActivityLogService;
 use App\Services\CategoryService;
 use App\Services\ProductService;
 use App\Services\SupplierService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -31,12 +32,20 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $products = $this->productService->getAll();
+    public function index(Request $request)
+{
 
-        return view('products.index', compact('products'));
-    }
+    $products = $this->productService->getAll(
+        $request->search
+    );
+
+
+    return view(
+        'products.index',
+        compact('products')
+    );
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -89,7 +98,7 @@ class ProductController extends Controller
             'attributes',
         ]);
 
-        return view('products.show', compact('product'));
+        return view('products._show', compact('product'));
     }
 
     /**

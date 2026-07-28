@@ -3,37 +3,96 @@
 @endphp
 
 <aside id="sidebar"
-    class="fixed top-0 left-0 z-20 w-64 h-screen transition-transform bg-slate-900 border-r border-slate-700 lg:translate-x-0"
+    class="
+    fixed
+    top-0
+    left-0
+    z-20
+    w-64
+    h-screen
+    transition-transform
+    bg-gradient-to-b
+    from-purple-950
+    via-purple-900
+    to-blue-950
+    border-r
+    border-white/10
+    lg:translate-x-0
+    "
     aria-label="Sidebar">
 
     <div class="flex flex-col h-full">
 
         {{-- ================= LOGO ================= --}}
-        <div class="flex items-center px-5 py-4 border-b border-slate-700">
+<div 
+class="
+flex
+items-center
+px-5
+py-4
+border-b
+border-white/10
+">
 
-            <div
-                class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
 
-                <i class="bi bi-box-seam text-white text-2xl"></i>
+    @if($setting && $setting->logo)
 
-            </div>
 
-            <div class="ml-3">
+        <div class="flex items-center justify-center w-12 h-12 rounded-xl overflow-hidden bg-white shadow-lg">
 
-                <h1 class="text-xl font-bold tracking-wide text-white">
-                    STOCKIFY
-                </h1>
-
-                <p class="text-xs text-slate-400">
-                    Inventory Management
-                </p>
-
-            </div>
+            <img
+                src="{{ asset('storage/'.$setting->logo) }}"
+                class="w-full h-full object-cover"
+                alt="Logo Stockify">
 
         </div>
 
+
+    @else
+
+
+        <div
+            class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-600 shadow-lg">
+
+
+            <i class="bi bi-box-seam text-white text-2xl"></i>
+
+
+        </div>
+
+
+    @endif
+
+
+
+
+
+
+    <div class="ml-3">
+
+
+        <h1 class="text-xl font-bold tracking-wide text-white">
+
+            {{ $setting->app_name ?? 'STOCKIFY' }}
+
+        </h1>
+
+
+
+        <p class="text-xs text-purple-200">
+
+            {{ $setting->tagline ?? 'Inventory Management' }}
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
         {{-- ================= MENU ================= --}}
-        <div class="flex-1 overflow-y-auto px-4 py-5">
+        <div class="flex-1 overflow-y-auto px-4 py-5 custom-scrollbar">
 
             <ul class="space-y-2">
 
@@ -45,7 +104,7 @@
                     <a href="{{ route('dashboard') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('dashboard')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-speedometer2"></i>
@@ -71,7 +130,7 @@
 
                 <li class="pt-5">
 
-                    <p class="px-4 text-xs uppercase tracking-widest text-slate-500">
+                    <p class="px-4 text-xs uppercase tracking-widest text-purple-300">
 
                         Master Data
 
@@ -91,7 +150,7 @@
                     <a href="{{ route('categories.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('categories.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-tags-fill"></i>
@@ -114,7 +173,7 @@
                     <a href="{{ route('suppliers.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('suppliers.*')
-                            ? 'bg-blue-600 text-white shadow'
+                            ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-truck"></i>
@@ -137,7 +196,7 @@
                     <a href="{{ route('products.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('products.*')
-                            ? 'bg-blue-600 text-white shadow'
+                            ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-box-seam"></i>
@@ -167,7 +226,7 @@
                     <a href="{{ route('users.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('users.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-people-fill"></i>
@@ -189,7 +248,7 @@
 
                 <li class="pt-5">
 
-                    <p class="px-4 text-xs uppercase tracking-widest text-slate-500">
+                    <p class="px-4 text-xs uppercase tracking-widest text-purple-300">
 
                         Transactions
 
@@ -209,7 +268,7 @@
                     <a href="{{ route('stock-ins.index') }}"
                         class="flex items-center justify-between px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('stock-ins.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <div class="flex items-center gap-3">
@@ -236,7 +295,7 @@
                     <a href="{{ route('stock-outs.index') }}"
                         class="flex items-center justify-between px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('stock-outs.*')
-                            ? 'bg-blue-600 text-white shadow'
+                            ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <div class="flex items-center gap-3">
@@ -263,7 +322,7 @@
                     <a href="{{ route('stock-opnames.index') }}"
                         class="flex items-center justify-between px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('stock-opnames.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <div class="flex items-center gap-3">
@@ -290,7 +349,7 @@
     <a href="{{ route('approvals.index') }}"
         class="flex items-center justify-between px-4 py-3 rounded-xl transition
         {{ request()->routeIs('approvals.*')
-            ? 'bg-blue-600 text-white shadow'
+           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
         <div class="flex items-center gap-3">
@@ -318,7 +377,7 @@
 
                 <li class="pt-5">
 
-                    <p class="px-4 text-xs uppercase tracking-widest text-slate-500">
+                    <p class="px-4 text-xs uppercase tracking-widest text-purple-300">
 
                         Reports
 
@@ -331,7 +390,7 @@
                     <a href="{{ route('reports.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('reports.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-file-earmark-bar-graph"></i>
@@ -352,7 +411,7 @@
 
 <li class="pt-5">
 
-    <p class="px-4 text-xs uppercase tracking-widest text-slate-500">
+    <p class="px-4 text-xs uppercase tracking-widest text-purple-300">
         Configuration
     </p>
 
@@ -364,7 +423,7 @@
     <a href="{{ route('settings.index') }}"
         class="flex items-center justify-between px-4 py-3 rounded-xl transition
         {{ request()->routeIs('settings.*')
-            ? 'bg-blue-600 text-white shadow'
+           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
         <div class="flex items-center gap-3">
@@ -388,7 +447,7 @@
 
                 <li class="pt-5">
 
-                    <p class="px-4 text-xs uppercase tracking-widest text-slate-500">
+                    <p class="px-4 text-xs uppercase tracking-widest text-purple-300">
 
                         System
 
@@ -401,7 +460,7 @@
                     <a href="{{ route('activity-logs.index') }}"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl transition
                         {{ request()->routeIs('activity-logs.*')
-                            ? 'bg-blue-600 text-white shadow'
+                           ? 'bg-white/20 backdrop-blur text-white shadow-lg'
                             : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
 
                         <i class="bi bi-clock-history"></i>
@@ -421,16 +480,16 @@
 
 
        {{-- PROFILE --}}
-<div class="border-t border-slate-700 p-4">
+<div class="border-t border-white/10">
 
     <a href="{{ route('profile.edit') }}"
-        class="block rounded-xl bg-slate-800 p-3 transition hover:bg-slate-700">
+        class="block rounded-xl bg-white/10 backdrop-blur p-3 transition hover:bg-slate-700">
 
         <div class="flex items-center gap-3">
 
             {{-- Avatar --}}
             <div
-                class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white font-bold">
+                class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-blue-600 text-white font-bold">
 
                 {{ strtoupper(substr(Auth::user()->name,0,1)) }}
 

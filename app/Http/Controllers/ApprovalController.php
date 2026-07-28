@@ -4,20 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\ApprovalRepositoryInterface;
 use App\Services\ApprovalService;
+use App\Services\ActivityLogService;
 use Illuminate\Http\Request;
 use Exception;
 
 class ApprovalController extends Controller
 {
-    protected $approvalService;
     protected $approvalRepository;
+    protected $approvalService;
+    protected $activityLogService;
 
     public function __construct(
+        ApprovalRepositoryInterface $approvalRepository,
         ApprovalService $approvalService,
-        ApprovalRepositoryInterface $approvalRepository
+        ActivityLogService $activityLogService
     ) {
-        $this->approvalService = $approvalService;
         $this->approvalRepository = $approvalRepository;
+        $this->approvalService = $approvalService;
+        $this->activityLogService = $activityLogService;
     }
 
     /**
@@ -25,19 +29,14 @@ class ApprovalController extends Controller
      */
     public function index()
     {
-        $stockIns = $this->approvalRepository
-            ->getPendingStockIns();
+        $stockIns = $this->approvalRepository->getPendingStockIns();
 
-        $stockOuts = $this->approvalRepository
-            ->getPendingStockOuts();
+        $stockOuts = $this->approvalRepository->getPendingStockOuts();
 
-        return view(
-            'approvals.index',
-            compact(
-                'stockIns',
-                'stockOuts'
-            )
-        );
+        return view('approvals.index', compact(
+            'stockIns',
+            'stockOuts'
+        ));
     }
 
     /**
@@ -47,8 +46,14 @@ class ApprovalController extends Controller
     {
         try {
 
-            $this->approvalService
-                ->approveStockIn($id);
+            $stockIn = $this->approvalService->approveStockIn($id);
+
+            $this->activityLogService->log(
+                'Approval',
+                'Approve Stock In : ' .
+                $stockIn->product->name .
+                ' (Qty: ' . $stockIn->qty . ')'
+            );
 
             return back()->with(
                 'success',
@@ -76,11 +81,17 @@ class ApprovalController extends Controller
 
         try {
 
-            $this->approvalService
-                ->rejectStockIn(
-                    $id,
-                    $request->reason
-                );
+            $stockIn = $this->approvalService->rejectStockIn(
+                $id,
+                $request->reason
+            );
+
+            $this->activityLogService->log(
+                'Approval',
+                'Reject Stock In : ' .
+                $stockIn->product->name .
+                ' (Qty: ' . $stockIn->qty . ')'
+            );
 
             return back()->with(
                 'success',
@@ -104,8 +115,14 @@ class ApprovalController extends Controller
     {
         try {
 
-            $this->approvalService
-                ->approveStockOut($id);
+            $stockOut = $this->approvalService->approveStockOut($id);
+
+            $this->activityLogService->log(
+                'Approval',
+                'Approve Stock Out : ' .
+                $stockOut->product->name .
+                ' (Qty: ' . $stockOut->qty . ')'
+            );
 
             return back()->with(
                 'success',
@@ -133,11 +150,17 @@ class ApprovalController extends Controller
 
         try {
 
-            $this->approvalService
-                ->rejectStockOut(
-                    $id,
-                    $request->reason
-                );
+            $stockOut = $this->approvalService->rejectStockOut(
+                $id,
+                $request->reason
+            );
+
+            $this->activityLogService->log(
+                'Approval',
+                'Reject Stock Out : ' .
+                $stockOut->product->name .
+                ' (Qty: ' . $stockOut->qty . ')'
+            );
 
             return back()->with(
                 'success',

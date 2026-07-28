@@ -7,10 +7,27 @@ use App\Models\Supplier;
 
 class SupplierRepository implements SupplierRepositoryInterface
 {
-    public function getAll()
-    {
-        return Supplier::latest()->paginate(10);
-    }
+    public function getAll($search = null)
+{
+    return Supplier::when($search, function ($query) use ($search) {
+
+        $query->where(function ($q) use ($search) {
+
+            $q->where('name', 'like', '%' . $search . '%')
+
+            ->orWhere('email', 'like', '%' . $search . '%')
+
+            ->orWhere('phone', 'like', '%' . $search . '%')
+
+            ->orWhere('address', 'like', '%' . $search . '%');
+
+        });
+
+    })
+
+    ->latest()
+    ->paginate(10);
+}
 
     public function getById($id)
     {

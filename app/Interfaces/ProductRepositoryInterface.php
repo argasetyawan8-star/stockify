@@ -4,8 +4,8 @@ namespace App\Interfaces;
 
 interface ProductRepositoryInterface
 {
-    public function getAll();
-
+    public function getAll($search = null);
+    
     public function getById($id);
 
     public function store(array $data);

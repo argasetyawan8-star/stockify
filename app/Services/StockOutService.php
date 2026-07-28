@@ -6,18 +6,21 @@ use App\Interfaces\StockOutRepositoryInterface;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Services\ActivityLogService;
 
 class StockOutService
 {
     protected $stockOutRepository;
+    protected $activityLogService;
 
 
     public function __construct(
-        StockOutRepositoryInterface $stockOutRepository
-    ) {
-        $this->stockOutRepository = $stockOutRepository;
-    }
-
+    StockOutRepositoryInterface $stockOutRepository,
+    ActivityLogService $activityLogService
+) {
+    $this->stockOutRepository = $stockOutRepository;
+    $this->activityLogService = $activityLogService;
+}
 
 
 
@@ -57,8 +60,20 @@ class StockOutService
 
 
 
-            return $this->stockOutRepository
-                ->store($data);
+            $stockOut = $this->stockOutRepository->store($data);
+
+$product = Product::findOrFail($stockOut->product_id);
+
+$this->activityLogService->log(
+    'Stock Out',
+    'Membuat permintaan Stock Out produk "' .
+    $product->name .
+    '" sebanyak ' .
+    $stockOut->qty .
+    ' pcs'
+);
+
+return $stockOut;
 
         });
     }
@@ -100,8 +115,20 @@ class StockOutService
 
 
 
-            return $this->stockOutRepository
-                ->getById($id);
+            $updated = $this->stockOutRepository->getById($id);
+
+$product = Product::findOrFail($updated->product_id);
+
+$this->activityLogService->log(
+    'Stock Out',
+    'Mengubah permintaan Stock Out produk "' .
+    $product->name .
+    '" menjadi ' .
+    $updated->qty .
+    ' pcs'
+);
+
+return $updated;
 
         });
     }
@@ -182,7 +209,14 @@ class StockOutService
 
 
 
-
+            $this->activityLogService->log(
+                'Approval Stock Out',
+                'Menyetujui Stock Out produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockOut->qty .
+                ' pcs'
+            );
 
             return $stockOut;
 
@@ -229,7 +263,16 @@ class StockOutService
 
         ]);
 
+        $product = Product::findOrFail($stockOut->product_id);
 
+        $this->activityLogService->log(
+            'Approval Stock Out',
+            'Menolak Stock Out produk "' .
+            $product->name .
+            '" sebanyak ' .
+            $stockOut->qty .
+            ' pcs'
+        );
 
         return $stockOut;
 
@@ -279,7 +322,16 @@ class StockOutService
 
             }
 
+            $product = Product::findOrFail($stockOut->product_id);
 
+            $this->activityLogService->log(
+                'Stock Out',
+                'Menghapus transaksi Stock Out produk "' .
+                $product->name .
+                '" sebanyak ' .
+                $stockOut->qty .
+                ' pcs'
+            );
 
 
 

@@ -8,9 +8,17 @@ use App\Models\StockOut;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Services\ActivityLogService;
 
 class ApprovalService
 {
+    protected $activityLogService;
+
+    public function __construct(ActivityLogService $activityLogService)
+    {
+        $this->activityLogService = $activityLogService;
+    }
+
     /**
      * APPROVE STOCK IN
      */
@@ -37,6 +45,16 @@ class ApprovalService
                 'rejection_reason' => null,
             ]);
 
+            // Activity Log
+            $this->activityLogService->log(
+                'Approval',
+                'Approve Stock In : ' .
+                $stockIn->product->name .
+                ' (Qty: ' .
+                $stockIn->qty .
+                ')'
+            );
+
             return $stockIn;
         });
     }
@@ -48,7 +66,7 @@ class ApprovalService
     {
         return DB::transaction(function () use ($id, $reason) {
 
-            $stockIn = StockIn::findOrFail($id);
+            $stockIn = StockIn::with('product')->findOrFail($id);
 
             if ($stockIn->status !== 'pending') {
                 throw new Exception('Transaksi sudah diproses.');
@@ -60,6 +78,16 @@ class ApprovalService
                 'approved_at'      => now(),
                 'rejection_reason' => $reason,
             ]);
+
+            // Activity Log
+            $this->activityLogService->log(
+                'Approval',
+                'Reject Stock In : ' .
+                $stockIn->product->name .
+                ' (Qty: ' .
+                $stockIn->qty .
+                ')'
+            );
 
             return $stockIn;
         });
@@ -80,9 +108,7 @@ class ApprovalService
 
             $product = Product::findOrFail($stockOut->product_id);
 
-            /**
-             * Cek stok
-             */
+            // Cek stok
             if ($product->stock < $stockOut->qty) {
                 throw new Exception(
                     'Stok produk tidak mencukupi.'
@@ -103,6 +129,16 @@ class ApprovalService
                 'rejection_reason' => null,
             ]);
 
+            // Activity Log
+            $this->activityLogService->log(
+                'Approval',
+                'Approve Stock Out : ' .
+                $stockOut->product->name .
+                ' (Qty: ' .
+                $stockOut->qty .
+                ')'
+            );
+
             return $stockOut;
         });
     }
@@ -114,7 +150,7 @@ class ApprovalService
     {
         return DB::transaction(function () use ($id, $reason) {
 
-            $stockOut = StockOut::findOrFail($id);
+            $stockOut = StockOut::with('product')->findOrFail($id);
 
             if ($stockOut->status !== 'pending') {
                 throw new Exception('Transaksi sudah diproses.');
@@ -126,6 +162,16 @@ class ApprovalService
                 'approved_at'      => now(),
                 'rejection_reason' => $reason,
             ]);
+
+            // Activity Log
+            $this->activityLogService->log(
+                'Approval',
+                'Reject Stock Out : ' .
+                $stockOut->product->name .
+                ' (Qty: ' .
+                $stockOut->qty .
+                ')'
+            );
 
             return $stockOut;
         });

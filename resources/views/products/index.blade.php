@@ -47,14 +47,82 @@ class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-bl
 
 
 
-    <div class="flex justify-between mb-4">
+    {{-- SEARCH PRODUCT --}}
+<form
+method="GET"
+action="{{ route('products.index') }}"
+class="mb-6">
+
+
+<div class="flex gap-3">
+
+
+    <div class="relative flex-1">
+
+
+        <i
+        class="
+        bi bi-search
+        absolute
+        left-4
+        top-3.5
+        text-gray-400
+        ">
+        </i>
+
+
 
         <input
-            type="text"
-            placeholder="Cari produk..."
-            class="w-80 rounded-lg border-gray-300">
+
+        type="text"
+
+        name="search"
+
+        value="{{ request('search') }}"
+
+        placeholder="Cari produk, SKU, kategori, supplier..."
+
+        class="
+        w-full
+        rounded-xl
+        border-gray-300
+        pl-11
+        py-3
+        focus:ring-4
+        focus:ring-blue-100
+        focus:border-blue-500
+        ">
+
 
     </div>
+
+
+
+
+    <button
+
+    type="submit"
+
+    class="
+    px-4
+    rounded-xl
+    bg-blue-600
+    text-white
+    hover:bg-blue-700
+    transition">
+
+        <i class="bi bi-search mr-2"></i>
+
+       
+
+    </button>
+
+
+
+</div>
+
+
+</form>
 
 </div>
 
@@ -257,36 +325,40 @@ Rp {{ number_format($product->selling_price,0,',','.') }}
 
 <div class="flex justify-center gap-2">
 
+<a href="{{ route('products._show', $product->id) }}"
+   class="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition">
 
-<a
-href="{{ route('products.edit',$product->id) }}"
-class="px-3 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600">
+    <i class="bi bi-eye"></i>
 
-<i class="bi bi-pencil"></i>
-Edit
+    <span>Detail</span>
+
+</a>
+
+<a href="{{ route('products.edit', $product->id) }}"
+   class="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-sm font-medium text-white hover:bg-yellow-600 transition">
+
+    <i class="bi bi-pencil"></i>
+
+    <span>Edit</span>
 
 </a>
 
 
-<form
-action="{{ route('products.destroy',$product->id) }}"
-method="POST">
+<form action="{{ route('products.destroy', $product->id) }}"
+      method="POST">
 
-@csrf
-@method('DELETE')
+    @csrf
+    @method('DELETE')
 
+    <button
+        onclick="return confirm('Yakin ingin menghapus produk ini?')"
+        class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 transition">
 
-<button
-onclick="return confirm('Yakin ingin menghapus produk ini?')"
-class="px-3 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700">
+        <i class="bi bi-trash"></i>
 
+        <span>Hapus</span>
 
-<i class="bi bi-trash"></i>
-Hapus
-
-
-</button>
-
+    </button>
 
 </form>
 

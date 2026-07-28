@@ -188,7 +188,7 @@
                                 <a href="{{ route('stock-outs.edit',$stock->id) }}"
                                     class="px-3 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white">
 
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="bi bi-pencil"></i>
 
                                 </a>
 

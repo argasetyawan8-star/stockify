@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('ip_address')->nullable();
 
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
 
         });
     }

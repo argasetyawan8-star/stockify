@@ -16,6 +16,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AdminDashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('permission:view dashboard')
         ->name('dashboard');
+
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+    ->middleware([
+        'permission:view dashboard',
+        'role:Admin'
+    ])
+    ->name('admin.dashboard');
+
 
     /*
     |--------------------------------------------------------------------------
@@ -144,7 +154,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/products/{product}', [ProductController::class, 'show'])
         ->middleware('permission:view products')
-        ->name('products.show');
+        ->name('products._show');
 
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
         ->middleware('permission:manage products')
@@ -237,13 +247,21 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/reports', [ReportController::class, 'index'])
-        ->middleware('permission:view reports')
-        ->name('reports.index');
+   Route::prefix('reports')
+    ->name('reports.')
+    ->middleware(['auth'])
+    ->group(function () {
 
-    Route::get('/reports/pdf', [ReportController::class, 'exportPdf'])
-        ->middleware('permission:view reports')
-        ->name('reports.pdf');
+        Route::get('/', [ReportController::class, 'index'])
+            ->name('index');
+
+        Route::get('/pdf', [ReportController::class, 'exportPdf'])
+            ->name('pdf');
+
+        Route::get('/excel', [ReportController::class, 'exportExcel'])
+            ->name('excel');
+
+    });   
 
     /*
     |--------------------------------------------------------------------------
@@ -341,4 +359,14 @@ Route::middleware('auth')->group(function () {
         ->name('settings.index');
 
     });
+
+    Route::resource(
+    'settings',
+    SettingController::class
+)
+->only([
+    'index',
+    'edit',
+    'update'
+]);
 require __DIR__ . '/auth.php';

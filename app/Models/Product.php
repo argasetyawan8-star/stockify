@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StockIn;
+use App\Models\StockOut;
+use App\Models\StockOpname;
 
 class Product extends Model
 {
@@ -59,4 +61,20 @@ class Product extends Model
 {
     return $this->hasMany(StockIn::class);
 }
+/**
+ * Relasi ke Stock Out
+ */
+public function stockOuts()
+{
+    return $this->hasMany(StockOut::class);
+}
+
+/**
+ * Relasi ke Stock Opname
+ */
+public function stockOpnames()
+{
+    return $this->hasMany(StockOpname::class);
+}
+
 }

@@ -69,35 +69,40 @@
     @endif
 
     {{-- Search --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-5">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-5">
 
-        <div class="relative max-w-md">
+    <form
+        method="GET"
+        action="{{ route('suppliers.index') }}">
 
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        <div class="flex gap-3">
 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-5 h-5"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor">
+            <div class="relative flex-1">
 
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z"/>
+                <i class="bi bi-search absolute left-4 top-3.5 text-gray-400"></i>
 
-                </svg>
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Cari nama, email, telepon, atau alamat supplier..."
+                    class="w-full rounded-xl border-gray-300 pl-11 py-3 focus:ring-4 focus:ring-blue-100 focus:border-blue-500">
 
-            </span>
+            </div>
 
-            <input
-                type="text"
-                placeholder="Cari supplier..."
-                class="w-full rounded-lg border-gray-300 pl-10 focus:border-blue-500 focus:ring-blue-500">
+            <button
+                type="submit"
+                class="px-4 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition">
+
+                <i class="bi bi-search me-2"></i>
+
+            </button>
 
         </div>
 
-    </div>
+    </form>
+
+</div>
 
     {{-- Table --}}
     <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
@@ -172,9 +177,9 @@
         @can('manage suppliers')
 
             <a href="{{ route('suppliers.edit',$supplier->id) }}"
-               class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+               class="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-sm font-medium text-white hover:bg-yellow-600 transition">
 
-                <i class="bi bi-pencil-square"></i>
+                <i class="bi bi-pencil"></i>
 
                 Edit
 

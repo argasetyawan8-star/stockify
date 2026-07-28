@@ -35,22 +35,11 @@
         {{-- Right --}}
         <div class="flex items-center gap-5">
 
-            {{-- Search --}}
-            <div class="hidden md:block relative">
-
-                <input
-                    type="text"
-                    placeholder="Cari..."
-                    class="w-72 rounded-xl border border-slate-300 bg-slate-50 py-2.5 pl-11 pr-4 focus:border-blue-500 focus:ring-blue-500">
-
-                <i
-                    class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                </i>
-
-            </div>
+           
+            
 
             {{-- Notification --}}
-            <button
+         {{-- <button
                 class="relative flex items-center justify-center w-11 h-11 rounded-xl hover:bg-slate-100 transition">
 
                 <i class="bi bi-bell text-xl text-slate-600"></i>
@@ -59,7 +48,7 @@
                     class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-red-500">
                 </span>
 
-            </button>
+            </button> --}}
 
             {{-- User --}}
             <div class="relative group">
@@ -117,7 +106,7 @@
                     <div class="py-2">
 
                         <a
-                            href="#"
+                            href="profile"
                             class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 transition">
 
                             <i class="bi bi-person-circle"></i>
@@ -126,15 +115,7 @@
 
                         </a>
 
-                        <a
-                            href="#"
-                            class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 transition">
-
-                            <i class="bi bi-gear"></i>
-
-                            Settings
-
-                        </a>
+                       
 
                     </div>
 

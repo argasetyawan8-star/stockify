@@ -10,12 +10,31 @@ use App\Models\StockOut;
 use App\Models\User;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StaffDashboardController;
+
+
 
 class DashboardController extends Controller
 {
     public function index()
     {
 
+         $user = Auth::user();
+
+        if ($user->hasRole('Admin')) {
+            return app(AdminDashboardController::class)->index();
+        }
+
+        if ($user->hasRole('Manajer Gudang')) {
+            return app(ManagerDashboardController::class)->index();
+        }
+
+        if ($user->hasRole('Staff Gudang')) {
+            return app(StaffDashboardController::class)->index();
+        }
+
+        abort(403);
         /*
         |--------------------------------------------------------------------------
         | Statistik Utama
