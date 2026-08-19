@@ -4,13 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-
         /*
         |--------------------------------------------------------------------------
         | Buat Role
@@ -19,21 +17,18 @@ class RoleSeeder extends Seeder
 
         $admin = Role::firstOrCreate([
             'name' => 'Admin',
-            'guard_name' => 'web'
+            'guard_name' => 'web',
         ]);
-
 
         $manager = Role::firstOrCreate([
-            'name' => 'Manager Gudang',
-            'guard_name' => 'web'
+            'name' => 'Manajer Gudang',
+            'guard_name' => 'web',
         ]);
-
 
         $staff = Role::firstOrCreate([
             'name' => 'Staff Gudang',
-            'guard_name' => 'web'
+            'guard_name' => 'web',
         ]);
-
 
 
         /*
@@ -46,29 +41,39 @@ class RoleSeeder extends Seeder
 
             'view dashboard',
 
-            'manage products',
-            'view products',
-
+            'view categories',
             'manage categories',
+
+            'view suppliers',
             'manage suppliers',
 
-            'manage users',
+            'view products',
+            'manage products',
 
-            'stock in',
-            'stock out',
-            'stock opname',
+            'view stock in',
+            'manage stock in',
+
+            'view stock out',
+            'manage stock out',
+
+            'view stock opname',
+            'manage stock opname',
 
             'view reports',
 
+            'view users',
+            'manage users',
+
             'view activity logs',
 
+            'view settings',
+            'manage settings',
         ]);
-
 
 
         /*
         |--------------------------------------------------------------------------
-        | Permission Manager Gudang
+        | Permission Manajer Gudang
         |--------------------------------------------------------------------------
         */
 
@@ -76,19 +81,22 @@ class RoleSeeder extends Seeder
 
             'view dashboard',
 
+            'view suppliers',
+
             'view products',
             'manage products',
 
-            'stock in',
-            'stock out',
-            'stock opname',
+            'view stock in',
+            'manage stock in',
 
-            'manage suppliers',
+            'view stock out',
+            'manage stock out',
+
+            'view stock opname',
+            'manage stock opname',
 
             'view reports',
-
         ]);
-
 
 
         /*
@@ -103,10 +111,11 @@ class RoleSeeder extends Seeder
 
             'view products',
 
-            'stock in',
-            'stock out',
+            'view stock in',
+            'manage stock in',
 
+            'view stock out',
+            'manage stock out',
         ]);
-
     }
 }

@@ -1,242 +1,242 @@
-<!DOCTYPE html>
-<html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
 
-<head>
+        <head>
 
-<meta charset="UTF-8">
+        <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-    Login | Stockify
-</title>
+        <title>
+            Login | Stockify
+        </title>
 
 
-@vite([
-    'resources/css/app.css',
-    'resources/js/app.js'
-])
+        @vite([
+            'resources/css/app.css',
+            'resources/js/app.js'
+        ])
 
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
 
 
-</head>
+        </head>
 
 
-<body>
+        <body>
 
 
-<div
-class="
-min-h-screen
-relative
-overflow-hidden
-flex
-items-center
-justify-center
-bg-slate-50
-p-6
-">
+        <div
+        class="
+        min-h-screen
+        relative
+        overflow-hidden
+        flex
+        items-center
+        justify-center
+        bg-slate-50
+        p-6
+        ">
 
 
-{{-- BACKGROUND DECORATION --}}
+        {{-- BACKGROUND DECORATION --}}
 
-<div
-class="
-absolute
-top-0
-left-0
-w-72
-h-72
-bg-purple-200
-rounded-full
-blur-3xl
-opacity-40
-">
-</div>
+        <div
+        class="
+        absolute
+        top-0
+        left-0
+        w-72
+        h-72
+        bg-purple-200
+        rounded-full
+        blur-3xl
+        opacity-40
+        ">
+        </div>
 
 
-<div
-class="
-absolute
-bottom-0
-right-0
-w-72
-h-72
-bg-blue-200
-rounded-full
-blur-3xl
-opacity-40
-">
-</div>
+        <div
+        class="
+        absolute
+        bottom-0
+        right-0
+        w-72
+        h-72
+        bg-blue-200
+        rounded-full
+        blur-3xl
+        opacity-40
+        ">
+        </div>
 
 
 
 
-{{-- LOGIN CARD --}}
+        {{-- LOGIN CARD --}}
 
-<div
+        <div
 
-class="
-relative
-z-10
-w-full
-max-w-md
-bg-white
-rounded-3xl
-shadow-xl
-border
-border-slate-100
-p-8
-animate-fade-in
-">
+        class="
+        relative
+        z-10
+        w-full
+        max-w-md
+        bg-white
+        rounded-3xl
+        shadow-xl
+        border
+        border-slate-100
+        p-8
+        animate-fade-in
+        ">
 
 
 
-{{-- LOGO --}}
+        {{-- LOGO --}}
 
-<div
+        <div
 
-class="
-flex
-justify-center
-mb-6
-">
+        class="
+        flex
+        justify-center
+        mb-6
+        ">
 
 
-<img
+        <img
 
-src="{{ asset('images/images.jpeg') }}"
+        src="{{ asset('images/images.jpeg') }}"
 
-alt="Stockify Logo"
+        alt="Stockify Logo"
 
 
-class="
-w-28
-h-28
-rounded-2xl
-object-cover
-shadow-lg
-animate-float
-hover:scale-110
-transition
-duration-500
-">
+        class="
+        w-28
+        h-28
+        rounded-2xl
+        object-cover
+        shadow-lg
+        animate-float
+        hover:scale-110
+        transition
+        duration-500
+        ">
 
 
-</div>
+        </div>
 
 
 
 
 
-{{-- BRANDING --}}
+        {{-- BRANDING --}}
 
-<div
+        <div
 
-class="
-text-center
-mb-8
-">
+        class="
+        text-center
+        mb-8
+        ">
 
 
-<h1
+        <h1
 
-class="
-text-3xl
-font-extrabold
-text-slate-800
-tracking-wide
-">
+        class="
+        text-3xl
+        font-extrabold
+        text-slate-800
+        tracking-wide
+        ">
 
-STOCKIFY
+        STOCKIFY
 
-</h1>
+        </h1>
 
 
 
-<p
+        <p
 
-class="
-text-sm
-text-slate-500
-mt-2
-">
+        class="
+        text-sm
+        text-slate-500
+        mt-2
+        ">
 
-Inventory Management System
+        Inventory Management System
 
-</p>
+        </p>
 
 
 
-<div
+        <div
 
-class="
-mt-4
-flex
-justify-center
-">
+        class="
+        mt-4
+        flex
+        justify-center
+        ">
 
 
-<span
+        <span
 
-class="
-inline-flex
-items-center
-gap-2
-px-4
-py-2
-rounded-full
-bg-purple-50
-text-purple-600
-text-xs
-font-semibold
-">
+        class="
+        inline-flex
+        items-center
+        gap-2
+        px-4
+        py-2
+        rounded-full
+        bg-purple-50
+        text-purple-600
+        text-xs
+        font-semibold
+        ">
 
 
-<span
+        <span
 
-class="
-w-2
-h-2
-bg-green-500
-rounded-full
-animate-pulse
-">
+        class="
+        w-2
+        h-2
+        bg-green-500
+        rounded-full
+        animate-pulse
+        ">
 
-</span>
+        </span>
 
 
-Smart Warehouse Solution
+        Smart Warehouse Solution
 
 
-</span>
+        </span>
 
 
-</div>
+        </div>
 
 
 
-<p
+        <p
 
-class="
-mt-5
-text-sm
-text-slate-500
-leading-relaxed
-">
+        class="
+        mt-5
+        text-sm
+        text-slate-500
+        leading-relaxed
+        ">
 
-Kelola stok barang dengan mudah,
-cepat, dan akurat.
+        Kelola stok barang dengan mudah,
+        cepat, dan akurat.
 
 
-</p>
+        </p>
 
 
-</div>
+        </div>
 
 
 
@@ -244,120 +244,120 @@ cepat, dan akurat.
 
 
 
-{{-- FORM LOGIN --}}
+        {{-- FORM LOGIN --}}
 
-<form
+        <form
 
-method="POST"
+        method="POST"
 
-action="{{ route('login') }}">
+        action="{{ route('login') }}">
 
-@csrf
+        @csrf
 
 
 
 
-{{-- EMAIL --}}
+        {{-- EMAIL --}}
 
-<div
+        <div
 
-class="
-mb-5
-">
+        class="
+        mb-5
+        ">
 
 
-<label
+        <label
 
-class="
-block
-text-sm
-font-semibold
-text-slate-700
-mb-2
-">
+        class="
+        block
+        text-sm
+        font-semibold
+        text-slate-700
+        mb-2
+        ">
 
-Email Address
+        Email Address
 
-</label>
+        </label>
 
 
 
-<div
+        <div
 
-class="
-relative
-">
+        class="
+        relative
+        ">
 
 
-<i
+        <i
 
-class="
-bi bi-envelope-fill
-absolute
-left-4
-top-3.5
-text-slate-400
-">
+        class="
+        bi bi-envelope-fill
+        absolute
+        left-4
+        top-3.5
+        text-slate-400
+        ">
 
-</i>
+        </i>
 
 
 
-<input
+        <input
 
-type="email"
+        type="email"
 
-name="email"
+        name="email"
 
-value="{{ old('email') }}"
+        value="{{ old('email') }}"
 
-required
+        required
 
-autofocus
+        autofocus
 
 
-placeholder="admin@gmail.com"
+        placeholder="admin@gmail.com"
 
 
-class="
-w-full
-rounded-xl
-border
-border-slate-200
-bg-slate-50
-pl-11
-py-3
-outline-none
-transition
-focus:bg-white
-focus:border-purple-500
-focus:ring-4
-focus:ring-purple-100
-">
+        class="
+        w-full
+        rounded-xl
+        border
+        border-slate-200
+        bg-slate-50
+        pl-11
+        py-3
+        outline-none
+        transition
+        focus:bg-white
+        focus:border-purple-500
+        focus:ring-4
+        focus:ring-purple-100
+        ">
 
 
-</div>
+        </div>
 
 
 
-@error('email')
+        @error('email')
 
-<p
+        <p
 
-class="
-text-sm
-text-red-500
-mt-2
-">
+        class="
+        text-sm
+        text-red-500
+        mt-2
+        ">
 
-{{ $message }}
+        {{ $message }}
 
-</p>
+        </p>
 
-@enderror
+        @enderror
 
 
-</div>
+        </div>
 
 
 
@@ -365,103 +365,103 @@ mt-2
 
 
 
-{{-- PASSWORD --}}
+        {{-- PASSWORD --}}
 
-<div
+        <div
 
-class="
-mb-5
-">
+        class="
+        mb-5
+        ">
 
 
-<label
+        <label
 
-class="
-block
-text-sm
-font-semibold
-text-slate-700
-mb-2
-">
+        class="
+        block
+        text-sm
+        font-semibold
+        text-slate-700
+        mb-2
+        ">
 
-Password
+        Password
 
-</label>
+        </label>
 
 
 
-<div
+        <div
 
-class="
-relative
-">
+        class="
+        relative
+        ">
 
 
-<i
+        <i
 
-class="
-bi bi-lock-fill
-absolute
-left-4
-top-3.5
-text-slate-400
-">
+        class="
+        bi bi-lock-fill
+        absolute
+        left-4
+        top-3.5
+        text-slate-400
+        ">
 
-</i>
+        </i>
 
 
 
-<input
+        <input
 
-type="password"
+        type="password"
 
-name="password"
+        name="password"
 
-required
+        required
 
 
-placeholder="********"
+        placeholder="********"
 
 
-class="
-w-full
-rounded-xl
-border
-border-slate-200
-bg-slate-50
-pl-11
-py-3
-outline-none
-transition
-focus:bg-white
-focus:border-purple-500
-focus:ring-4
-focus:ring-purple-100
-">
+        class="
+        w-full
+        rounded-xl
+        border
+        border-slate-200
+        bg-slate-50
+        pl-11
+        py-3
+        outline-none
+        transition
+        focus:bg-white
+        focus:border-purple-500
+        focus:ring-4
+        focus:ring-purple-100
+        ">
 
 
-</div>
+        </div>
 
 
 
-@error('password')
+        @error('password')
 
-<p
+        <p
 
-class="
-text-sm
-text-red-500
-mt-2
-">
+        class="
+        text-sm
+        text-red-500
+        mt-2
+        ">
 
-{{ $message }}
+        {{ $message }}
 
-</p>
+        </p>
 
-@enderror
+        @enderror
 
 
-</div>
+        </div>
 
 
 
@@ -469,46 +469,46 @@ mt-2
 
 
 
-{{-- REMEMBER --}}
+        {{-- REMEMBER --}}
 
-<div
+        <div
 
-class="
-flex
-items-center
-mb-6
-">
+        class="
+        flex
+        items-center
+        mb-6
+        ">
 
 
-<input
+        <input
 
-type="checkbox"
+        type="checkbox"
 
-name="remember"
+        name="remember"
 
 
-class="
-rounded
-border-slate-300
-text-purple-600
-focus:ring-purple-500
-">
+        class="
+        rounded
+        border-slate-300
+        text-purple-600
+        focus:ring-purple-500
+        ">
 
 
-<span
+        <span
 
-class="
-ml-2
-text-sm
-text-slate-600
-">
+        class="
+        ml-2
+        text-sm
+        text-slate-600
+        ">
 
-Remember me
+        Remember me
 
-</span>
+        </span>
 
 
-</div>
+        </div>
 
 
 
@@ -516,52 +516,52 @@ Remember me
 
 
 
-{{-- BUTTON --}}
+        {{-- BUTTON --}}
 
-<button
+        <button
 
-type="submit"
+        type="submit"
 
 
-class="
-w-full
-bg-gradient-to-r
-from-purple-600
-to-blue-600
-hover:from-purple-700
-hover:to-blue-700
-text-white
-font-semibold
-py-3
-rounded-xl
-shadow-lg
-transition
-duration-300
-hover:-translate-y-1
-hover:shadow-2xl
-active:scale-95
-">
+        class="
+        w-full
+        bg-gradient-to-r
+        from-purple-600
+        to-blue-600
+        hover:from-purple-700
+        hover:to-blue-700
+        text-white
+        font-semibold
+        py-3
+        rounded-xl
+        shadow-lg
+        transition
+        duration-300
+        hover:-translate-y-1
+        hover:shadow-2xl
+        active:scale-95
+        ">
 
 
-<i
+        <i
 
-class="
-bi bi-box-arrow-in-right
-mr-2
-">
+        class="
+        bi bi-box-arrow-in-right
+        mr-2
+        ">
 
-</i>
+        </i>
 
 
-Login
+        Login
 
 
-</button>
+        </button>
 
 
 
 
-</form>
+        </form>
 
 
 
@@ -569,55 +569,55 @@ Login
 
 
 
-{{-- FOOTER --}}
+        {{-- FOOTER --}}
 
-<div
+        <div
 
-class="
-text-center
-mt-8
-text-sm
-text-slate-400
-">
+        class="
+        text-center
+        mt-8
+        text-sm
+        text-slate-400
+        ">
 
 
-© {{ date('Y') }}
+        © {{ date('Y') }}
 
-<span
+        <span
 
-class="
-font-bold
-text-slate-600
-">
+        class="
+        font-bold
+        text-slate-600
+        ">
 
-STOCKIFY
+        STOCKIFY
 
-</span>
+        </span>
 
 
-<p
+        <p
 
-class="
-text-xs
-mt-1
-">
+        class="
+        text-xs
+        mt-1
+        ">
 
-Inventory Management System
+        Inventory Management System
 
-</p>
+        </p>
 
 
-</div>
+        </div>
 
 
 
-</div>
+        </div>
 
 
-</div>
+        </div>
 
 
 
-</body>
+        </body>
 
-</html>
+        </html>

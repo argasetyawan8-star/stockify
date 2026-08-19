@@ -258,14 +258,7 @@
 
                             @can('manage suppliers')
 
-                            <a href="{{ route('suppliers.create') }}"
-                            class="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700 transition">
-
-                            <i class="bi bi-plus-circle"></i>
-
-                            Tambah Supplier
-
-                            </a>
+                           
 
                             @endcan
 

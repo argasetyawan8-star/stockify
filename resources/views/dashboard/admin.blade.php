@@ -659,7 +659,7 @@ Barang Keluar
                         class="text-center py-6 text-slate-500">
 
 
-                        Semua stok aman 👍
+                        Semua stok aman 
 
 
                     </td>
@@ -1078,7 +1078,7 @@ Barang Keluar
 
 
 
-<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+{{-- <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
 
 
     <div class="flex items-center justify-between mb-6">
@@ -1200,7 +1200,7 @@ Barang Keluar
 
 
 
-</div>
+</div> --}}
 
 
 

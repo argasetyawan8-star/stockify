@@ -103,7 +103,7 @@
 
                     </div>
 
-                    <div class="py-2">
+                    {{-- <div class="py-2">
 
                         <a
                             href="profile"
@@ -117,7 +117,7 @@
 
                        
 
-                    </div>
+                    </div> --}}
 
                     <div class="border-t border-slate-100">
 
