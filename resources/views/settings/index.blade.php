@@ -6,7 +6,7 @@
 
 <div class="w-full">
 
-    <div class="mt-14 px-6 py-6">
+    <div class="px-6 py-4">
 
         <div class="max-w-6xl mx-auto">
 

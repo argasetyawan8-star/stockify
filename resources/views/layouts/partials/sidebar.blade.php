@@ -12,8 +12,8 @@
     h-screen
     transition-transform
     bg-gradient-to-b
-    from-purple-950
-    via-purple-900
+    from-blue-950
+    via-blue-900
     to-blue-950
     border-r
     border-white/10
